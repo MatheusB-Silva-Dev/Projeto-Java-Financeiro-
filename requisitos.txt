@@ -1,0 +1,87 @@
+Sistema de Controle Financeiro Pessoal — Requisitos Atualizados
+
+1 Objetivo do sistema
+
+Um sistema Java puro para controle financeiro pessoal, que registre ganhos, gastos e dívidas, permitindo acompanhar o saldo mensal e o histórico de movimentações.
+
+Foco em Java puro, sem frameworks, usando console/CLI inicialmente.
+
+Interface evolutiva: depois pode ter HTML básico como dashboard.
+
+2️ Módulos principais
+Módulo	Objetivo
+Transações (Entradas/Saídas)	Registrar ganhos e gastos do trabalho (ex.: Uber, gasolina)
+Dívidas	Controlar dívidas abertas e quitadas, com data de vencimento
+Relatórios Mensais	Total de entradas, saídas e saldo do mês
+Categorias (opcional)	Agrupar transações/dívidas em tipos como “alimentação”, “trabalho”, “lazer”
+Dashboard	Resumo em texto ou HTML básico depois
+
+3️ Funcionalidades previstas
+Transações
+
+Criar nova transação (valor, tipo, data, categoria, descrição).
+
+Editar transação.
+
+Excluir transação.
+
+Listar todas ou por mês.
+
+Calcular saldo total.
+
+Dívidas
+
+Registrar nova dívida.
+
+Atualizar status (pago/não pago).
+
+Listar todas as dívidas.
+
+Calcular total pendente.
+
+Relatórios
+
+Mostrar totais por categoria e por tipo.
+
+Mostrar saldo final do mês.
+
+Exportar dados em CSV (opcional).
+
+4️⃣ Requisitos técnicos
+
+Linguagem: Java 17+ (puro, sem Spring).
+
+Persistência:
+
+Inicialmente listas em memória (para testes).
+
+Depois H2 embutido, CSV ou JSON para persistência real.
+
+Interface:
+
+Inicial: Console (CLI) com menus simples.
+
+Evolução: HTML básico com abas para Dívidas e Transações.
+
+Empacotamento: .jar executável.
+
+Organização de pacotes:
+
+com.matheus.financecontrol
+├── model        → classes Divida e Transacao
+├── repository   → listas temporárias ou persistência H2/CSV/JSON
+├── service      → lógica de negócio, cálculos e validações
+├── controller   → interação com usuário (CLI ou futura dashboard)
+└── util         → funções auxiliares, formatação, exportação CSV
+
+5️⃣ Observações importantes
+
+Testes: antes de usar H2, testar CRUD e lógicas com listas em memória.
+
+Model: Divida e Transacao com atributos mínimos + toString() para exibição.
+
+Front: o console será suficiente no começo; depois, evoluir pra HTML simples.
+
+Iteração: comece pelo Model, depois Service, Repository e Controller.
+
+Objetivo: projeto para uso real, funcional e rápido de implementar (~7 dias com foco).
