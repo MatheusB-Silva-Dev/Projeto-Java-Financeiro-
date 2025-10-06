@@ -9,7 +9,7 @@ public class DividaRepository {
     private ArrayList<Divida> listaDividas = new ArrayList<>();
 
     // Adiciona uma dívida
-    public void adicionar(Divida divida) {
+    public void adicionar(Divida divida)  {
         listaDividas.add(divida);
     }
 
@@ -18,7 +18,7 @@ public class DividaRepository {
         return listaDividas;
     }
 
-    // Remove uma dívida específica
+    // Remove uma divida específica
     public void remover(Divida divida) {
         listaDividas.remove(divida);
     }
