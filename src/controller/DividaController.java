@@ -9,7 +9,7 @@ import java.time.LocalDate; // Para trabalhar com datas
 public class DividaController {
     private Scanner teclado = new Scanner(System.in);
 
-    private DividaRepository repository = new DividaRepository();// Instancia o repositório
+    private DividaRepository dividaRepository = new DividaRepository();// Instancia o repositório
 
     // Metodo principal que exibe o menu e gerencia o fluxo de escolhas
     public void menuPrincipal() {
@@ -57,7 +57,7 @@ public class DividaController {
 
         // Cria um novo objeto Divida usando os dados fornecidos
         Divida divida = new Divida(descricao, valor, diaVencimento, false);
-        repository.adicionar(divida); // Adiciona a dívida no repositório
+        dividaRepository.adicionar(divida); // Adiciona a dívida no repositório
         System.out.println("Dívida adicionada com sucesso!");
     }
 
@@ -65,12 +65,12 @@ public class DividaController {
     private void listaDividas() {
         // Verifica se não há dívidas cadastradas
         System.out.println("\n=== Lista de Dívidas ===");
-        if (repository.listarTodos().isEmpty()) {
+        if (dividaRepository.listarTodos().isEmpty()) {
             System.out.println("Nenhuma dívida cadastrada.");
             return;
         }
         // Percorre todas as dívidas e exibe cada uma
-        for(Divida d : repository.listarTodos()) {
+        for(Divida d : dividaRepository.listarTodos()) {
             System.out.println(d);
         }
     }
@@ -83,7 +83,7 @@ public class DividaController {
 
         Divida paraRemover = null; // Inicializa variável para armazenar dívida a remover
         // Procura na lista de dívidas do repositório
-        for (Divida d : repository.listarTodos()) {
+        for (Divida d : dividaRepository.listarTodos()) {
             if (d.getDescricao().equalsIgnoreCase(descricao)){
                 paraRemover = d; // Define a divida para remover
                 break; // Sai do loop ao encontrar
@@ -92,7 +92,7 @@ public class DividaController {
 
         // Se encontrou a divida, remove
         if (paraRemover != null) {
-            repository.remover(paraRemover);
+            dividaRepository.remover(paraRemover);
             System.out.println("Dívida removida!");
         } else {
             System.out.println("Divida não encontrada!"); // Caso não encontre nenhuma correspondência
