@@ -2,12 +2,15 @@ package model;
 
 import java.time.LocalDate;
 
+//Classe objeto onde todas as outras classes vão usar mas ela não entra no fluxo diretamente
 public class Divida {
+    //Atributos do objeto Divida
     private String descricao;
     private double valor;
     private LocalDate dataVencimento;
     private boolean pago;
 
+    //Construtor de inicialização do objeto Divida
     public Divida(String descricao, double valor, LocalDate dataVencimento, boolean pago) {
         this.descricao = descricao;
         this.valor = valor;
@@ -15,6 +18,7 @@ public class Divida {
         this.pago = pago;
     }
 
+    //Geters / Seters para encapsulamento
     public String getDescricao() {
         return descricao;
     }
@@ -51,6 +55,7 @@ public class Divida {
         return pago;
     }
 
+    //Para testar pelo console
     @Override
     public String toString() {
         return ("Descrição: " + descricao + "| Valor: " + valor + "| Vencimento: " + dataVencimento + "| Pago: " + pago);

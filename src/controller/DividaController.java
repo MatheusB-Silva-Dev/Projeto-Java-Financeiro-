@@ -1,7 +1,7 @@
 package controller;
 
 import model.Divida; // Importa a classe modelo Divida
-import repository.DividaRepository;  // Importa o repositório para manipular as dívidas
+import service.DividaService; //Importa a service para manipular as dividas
 
 import java.util.Scanner;
 import java.time.LocalDate; // Para trabalhar com datas
@@ -9,16 +9,16 @@ import java.time.LocalDate; // Para trabalhar com datas
 public class DividaController {
     private Scanner teclado = new Scanner(System.in);
 
-    private DividaRepository dividaRepository = new DividaRepository();// Instancia o repositório
+    private DividaService dividaService = new DividaService();// Instancia a service
 
     // Metodo principal que exibe o menu e gerencia o fluxo de escolhas
     public void menuPrincipal() {
         int opcao = 0;// Inicializa a opção do menu
         // Enquanto o usuário não escolher sair opção 4 o menu continua
         while(opcao != 4) {
-            System.out.println("\n==============================");
+            System.out.println("\n=========================================================");
             System.out.println("1 - Adicionar | 2 - Listar Dívidas | 3 - Remover | 4 - Sair");
-            System.out.println("==============================");
+            System.out.println("===========================================================");
             System.out.println("Escolha uma opção: ");
             opcao = teclado.nextInt(); // Lê a opção do usuário
             teclado.nextLine(); // Limpa buffer do Scanner
@@ -57,7 +57,7 @@ public class DividaController {
 
         // Cria um novo objeto Divida usando os dados fornecidos
         Divida divida = new Divida(descricao, valor, diaVencimento, false);
-        dividaRepository.adicionar(divida); // Adiciona a dívida no repositório
+        dividaService.adicionar(divida); // Manda a nova divida para a service
         System.out.println("Dívida adicionada com sucesso!");
     }
 
@@ -65,12 +65,12 @@ public class DividaController {
     private void listaDividas() {
         // Verifica se não há dívidas cadastradas
         System.out.println("\n=== Lista de Dívidas ===");
-        if (dividaRepository.listarTodos().isEmpty()) {
+        if (dividaService.listaDividas().isEmpty()) { // Chama o metodo listaDividas da service que de la busca no repositorio
             System.out.println("Nenhuma dívida cadastrada.");
             return;
         }
         // Percorre todas as dívidas e exibe cada uma
-        for(Divida d : dividaRepository.listarTodos()) {
+        for(Divida d : dividaService.listaDividas()) {
             System.out.println(d);
         }
     }
@@ -78,13 +78,13 @@ public class DividaController {
     // Metodo para remover uma dívida pelo nome/descrição
     private void removerDivida() {
         // Le a descrição que o usuário quer remover
-        System.out.println("Digite a descrição da divida remover: ");
-        String descricao = teclado.nextLine();
+        System.out.println("Digite a descrição da divida a remover: ");
+        String descricao = teclado.nextLine().trim(); //trim para ignorar espaços
 
         Divida paraRemover = null; // Inicializa variável para armazenar dívida a remover
         // Procura na lista de dívidas do repositório
-        for (Divida d : dividaRepository.listarTodos()) {
-            if (d.getDescricao().equalsIgnoreCase(descricao)){
+        for (Divida d : dividaService.listaDividas()) {
+            if (d.getDescricao().trim().equalsIgnoreCase(descricao)){
                 paraRemover = d; // Define a divida para remover
                 break; // Sai do loop ao encontrar
             }
@@ -92,10 +92,9 @@ public class DividaController {
 
         // Se encontrou a divida, remove
         if (paraRemover != null) {
-            dividaRepository.remover(paraRemover);
-            System.out.println("Dívida removida!");
+            dividaService.remover(paraRemover);
         } else {
-            System.out.println("Divida não encontrada!"); // Caso não encontre nenhuma correspondência
+            System.out.println("Divida não encontrada!"); // Caso não encontre
         }
     }
 
