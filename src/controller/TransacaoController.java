@@ -61,8 +61,6 @@ public class TransacaoController {
         Transacao transacao = new Transacao(descricao, valor, data);
         // manda a transação para a service
         transacaoService.adicionar(transacao);
-        System.out.println("Transação adicionada!");
-
     }
 
     // Metodo para listar todas as transações
